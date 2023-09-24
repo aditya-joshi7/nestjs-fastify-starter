@@ -11,11 +11,20 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   );
+  const corsOptions = {
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    credetials: false,
+    maxAge: null,
+    preflight: true,
+    strictPreflight: true,
+  };
+  app.enableCors(corsOptions);
   const config = new DocumentBuilder()
     .setTitle('NestJS BoilerPlate')
     .setDescription('APIs for project')
     .setVersion('1.0')
-    .addTag('boilerplate')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
